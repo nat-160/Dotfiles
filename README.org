@@ -1,0 +1,12 @@
+* N4t's Dotfiles
+A cross-platform (Windows, \*Nix, and OSX) config
+** QuickStart Guide
+Install [[https://github.com/PowerShell/PowerShell/][PowerShell Core]] and run =./install.ps1= and =./installFonts.ps1=
+* Details
+** File Structure
+Each folder is for its corresponding program, and the config files live inside of them. They get symlinked manually to the appropriate location by PowerShell in =./install.ps1=.
+** Emacs
+*** TODO
+** PowerShell
+** Starship
+** Wezterm
