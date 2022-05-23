@@ -1,3 +1,6 @@
+# Emacs
+New-Item -Path $HOME/.emacs.d/init.el -ItemType SymbolicLink -Value $PWD/emacs/init.el -Force
+
 # PowerShell
 New-Item -Path $PROFILE -ItemType SymbolicLink -Value $PWD/powershell/profile.ps1 -Force
 
