@@ -1,12 +1,21 @@
 * N4t's Dotfiles
-A cross-platform (Windows, \*Nix, and OSX) config
+A cross-platform (Windows,Unix, and OSX) config
 ** QuickStart Guide
 Install [[https://github.com/PowerShell/PowerShell/][PowerShell Core]] and run =./install.ps1= and =./installFonts.ps1=
+** Todo List
+*** TODO Vim-like bindings
 * Details
 ** File Structure
 Each folder is for its corresponding program, and the config files live inside of them. They get symlinked manually to the appropriate location by PowerShell in =./install.ps1=.
 ** Emacs
-*** TODO
+"A great operating system, lacking only a decent editor". See ‘file:emacs/Emacs.org’
 ** PowerShell
+I <3 PowerShell. Currently uses Emacs keybindings.
 ** Starship
+Starship is a customizable prompt coded in Rust. See [[starship.rs]]
 ** Wezterm
+Wezterm is a cross-platform terminal emulator. Includes support for
+- Images
+- Multiplexing
+- Keybindings
+See [[wezfurlong.org/wezterm/][site]] for documentation
