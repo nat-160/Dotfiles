@@ -1,4 +1,4 @@
-(setq inhibit-splash-screen t	    ;; Disable welcome screen
+(setq inhibit-splash-screen t	;; Disable welcome screen
       ring-bell-function 'ignore  ;; Disable error bell
       display-line-numbers-type t ;; Static line number spacing
 )
@@ -33,51 +33,84 @@
 ;; Automatically install packages when loading
 (setq use-package-always-ensure t)
 
-(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 105)
-(set-face-attribute 'fixed-pitch nil :font "FiraCode Nerd Font" :height 105)
-(set-face-attribute 'variable-pitch nil :font "Source Sans Pro" :height 130 :weight 'regular)
-
-(use-package mixed-pitch
+(use-package no-littering
   :custom
-  (mixed-pitch-variable-pitch-cursor nil "Use default cursor")
-  :hook
-  (org-mode . mixed-pitch-mode))
+  (auto-save-file-name-transforms `((".*",(no-littering-expand-var-file-name "auto-save/") t)) "Change location for auto-saved files"))
+
+(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 120)
+(set-face-attribute 'fixed-pitch nil :font "FiraCode Nerd Font" :height 1.0)
+(set-face-attribute 'variable-pitch nil :font "Source Sans Pro" :height 1.0)
+
+(defun nat/org-set-faces ()
+
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.5)
+                  (org-level-2 . 1.2)
+                  (org-level-3 . 1.1)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Source Sans Pro" :weight 'regular :height (cdr face)))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (dolist (face '(line-number
+                  line-number-current-line
+                  org-block
+                  org-block-begin-line
+                  org-block-end-line
+                  org-code
+                  org-checkbox
+                  org-document-info-keyword
+                  org-formula
+                  org-meta-line
+                  org-special-keyword
+                  org-table
+                  org-verbatim))
+    (set-face-attribute face nil :inherit 'fixed-pitch))
+  )
 
 (require 'ox) ;; For exporting
 (require 'org-tempo) ;; For templates
 
 (defun nat/org-mode-setup()
-  (org-indent-mode)       ;; Visually indent
-  (visual-line-mode 1)    ;; Cursor follows word wrap
-)
+  (org-indent-mode)    ;; Visually indent
+  (visual-line-mode 1) ;; Cursor follows word wrap
+  (variable-pitch-mode 1)
+  (nat/org-set-faces)
+  )
 (use-package org
   :custom
   (org-ellipsis " ▾" "Minimized header indicator")
   (org-src-fontify-natively t "Mixed fonts")
-  :config
-  (nat/org-mode-setup)
+  (org-src-tab-acts-natively t "Indent code blocks")
+  (org-hide-emphasis-markers t "Hide markdown symbols")
   :hook
   (org-mode . nat/org-mode-setup)
-)
+  )
 
 ;; Add list of babel languages
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)))
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((emacs-lisp . t)))
 ;; Add conf-unix-mode manually
 (push '("conf-unix" . conf-unix) org-src-lang-modes)
 
 ;; Export function
 (defun nat/tangle-config ()
   (when
-    (string-equal
-      (buffer-file-name)
-      (expand-file-name "~/Dotfiles/emacs/Emacs.org"))
+      (string-equal
+       (buffer-file-name)
+       (expand-file-name "~/Dotfiles/emacs/Emacs.org"))
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 ;; Execute when saving Org
 (add-hook 'org-mode-hook
-  (lambda () (add-hook 'after-save-hook 'nat/tangle-config)))
+          (lambda () (add-hook 'after-save-hook 'nat/tangle-config)))
+
+(use-package org-superstar
+  :hook
+  (org-mode . org-superstar-mode))
 
 (use-package modus-themes
   :init ;; Customize before load
