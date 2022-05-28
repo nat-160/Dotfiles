@@ -11,6 +11,9 @@
 (defun nat/startup-message () (message ""))
 (add-hook 'emacs-startup-hook 'nat/startup-message)
 
+;; Line numbers when coding
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
 (tooltip-mode -1)    ;; Disable GUI hover
 (tool-bar-mode -1)   ;; Disable the bar with icons
 (menu-bar-mode -1)   ;; Disable the bar with text
@@ -108,6 +111,9 @@
 (add-hook 'org-mode-hook
           (lambda () (add-hook 'after-save-hook 'nat/tangle-config)))
 
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("ps" . "src powershell"))
+
 (use-package org-superstar
   :hook
   (org-mode . org-superstar-mode))
@@ -117,3 +123,35 @@
   (modus-themes-load-themes)
   :config
   (load-theme 'modus-vivendi t))
+
+(use-package powershell
+  :custom
+  (powershell-indent 2 "Spacing after line")
+  )
+
+(use-package lsp-mode
+  :custom
+  (lsp-keymap-prefix "C-c l")
+  :hook
+  (powershell-mode . lsp)
+  (lsp-mode . lsp-enable-which-key-integration)
+  )
+
+(use-package which-key
+  :init
+  (which-key-mode)
+)
+
+(use-package rainbow-delimiters
+  :hook
+  (prog-mode . rainbow-delimiters-mode)
+  )
+
+(use-package company
+  :after lsp-mode
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay (lambda()(if(company-in-string-or-comment) nil 0.0)))
+  :hook
+  (lsp-mode . company-mode)
+  )

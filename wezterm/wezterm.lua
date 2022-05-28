@@ -96,6 +96,8 @@ return {
       {key="Enter", mods="SHIFT", action={SendKey={key="f", mods="CTRL|ALT"}}},
       {key="=", mods="ALT", action={SendKey={key="+", mods="ALT"}}},
       {key="x", mods="CTRL", action={ActivateKeyTable={name="emacs_C_x", one_shot=true}}},
+      {key="V", mods="CTRL", action={PasteFrom="Clipboard"}},
+      {key="w", mods="ALT", action={CopyTo="Clipboard"}},
     },
     emacs_C_x = {
       {key="o", action={ActivatePaneDirection="Next"}},
