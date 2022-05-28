@@ -10,7 +10,7 @@ $fontZips = @('https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/
 $fontPath = Join-Path ([System.IO.Path]::GetTempPath()) 'fonts'
 
 # Download and extract files
-foreach($fontZip in $fontZips){
+foreach ($fontZip in $fontZips) {
   $tempZip = New-TemporaryFile
   Invoke-WebRequest $fontZip -OutFile $tempZip
   Expand-Archive $tempZip $fontPath
@@ -18,8 +18,8 @@ foreach($fontZip in $fontZips){
 
 # Invoke the system font installer
 $fontFiles = Get-ChildItem $fontPath "Fira*Complete.ttf"
-$fontFiles+= Get-ChildItem $fontPath "SourceSansPro*.otf"
-foreach($fontFile in ($fontFiles)){
+$fontFiles += Get-ChildItem $fontPath "SourceSansPro*.otf"
+foreach ($fontFile in ($fontFiles)) {
   Invoke-Item $fontFile
   Pause
 }
