@@ -155,3 +155,16 @@
   :hook
   (lsp-mode . company-mode)
   )
+
+(use-package markdown-mode
+  :custom
+  (markdown-fontify-code-blocks-natively t "Syntax highlighting")
+  :config
+  (push '("powershell" . powershell-mode) markdown-code-lang-modes)
+  (push '("pwsh" . powershell-mode) markdown-code-lang-modes)
+  )
+
+(use-package vertico
+  :init
+  (vertico-mode)
+  )

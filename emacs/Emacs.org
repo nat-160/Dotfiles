@@ -279,3 +279,20 @@ Load Modus Vivendi, the dark high contrast theme
     (lsp-mode . company-mode)
     )
 #+end_src
+** Markdown-Mode
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :custom
+    (markdown-fontify-code-blocks-natively t "Syntax highlighting")
+    :config
+    (push '("powershell" . powershell-mode) markdown-code-lang-modes)
+    (push '("pwsh" . powershell-mode) markdown-code-lang-modes)
+    )
+#+end_src
+** Vertico
+#+begin_src emacs-lisp
+  (use-package vertico
+    :init
+    (vertico-mode)
+    )
+#+end_src

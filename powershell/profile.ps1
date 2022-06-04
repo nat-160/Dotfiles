@@ -43,5 +43,22 @@ Set-PSReadLineKeyHandler -Key Alt+m -Function GotoFirstNonBlankOfLine
 Set-PSReadLineKeyHandler -Chord "Ctrl+$_H,k" -Function WhatIsKey
 Set-PSReadLineKeyHandler -Chord "Ctrl+$_H,b" -Function ShowKeyBindings
 
+# Functions/Aliases
+function Invoke-Sudo {
+  param(
+    [string[]]
+    [Parameter(ValueFromRemainingArguments)]
+    $arr
+  )
+  if ($arr) {
+    sudo pwsh -Command ($arr -join " ")
+  }
+  else {
+    sudo
+  }
+}
+Set-Alias "ls" -Value "Get-ChildItem"
+Set-Alias "isudo" -Value "Invoke-Sudo"
+
 # Start Starship
 Invoke-Expression (&starship init powershell)
