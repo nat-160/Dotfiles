@@ -1,6 +1,11 @@
 # Modules
-Import-Module Posh-Git || Install-Module Posh-Git && Import-Module Posh-Git
-Import-Module Terminal-Icons || Install-Module Terminal-Icons && Import-Module Terminal-Icons
+$modules = "Posh-Git", "Terminal-Icons"
+foreach ($m in $modules) {
+  if (!(Import-Module $m -ErrorAction Ignore)) {
+    Install-Module $m
+    Import-Module $m
+  }
+}
 
 # Emacs Keybindings
 Set-PSReadLineOption -EditMode 1
@@ -45,13 +50,9 @@ Set-PSReadLineKeyHandler -Chord "Ctrl+$_H,b" -Function ShowKeyBindings
 
 # Functions/Aliases
 function Invoke-Sudo {
-  param(
-    [string[]]
-    [Parameter(ValueFromRemainingArguments)]
-    $arr
-  )
-  if ($arr) {
-    sudo pwsh -Command ($arr -join " ")
+  if ($args) {
+    $output = sudo pwsh -NoProfile -OutputFormat XML -Command ($args -join " ")
+    $output
   }
   else {
     sudo
