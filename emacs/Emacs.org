@@ -8,7 +8,8 @@ Literate config for Emacs. Goals:
 
 ** TODO Migrate from old config
 ** TODO LSP
-** TODO No littering
+** TODO standardize indentation
+** DONE No littering
 
 * Default Settings
 
@@ -19,8 +20,8 @@ Any default in Emacs to be changed
 #+begin_src emacs-lisp
   (setq inhibit-splash-screen t	;; Disable welcome screen
         ring-bell-function 'ignore  ;; Disable error bell
-        display-line-numbers-type t ;; Static line number spacing
-  )
+        display-line-numbers-type t) ;; Static line number spacing
+
   (setq-default indent-tabs-mode nil) ;; Disable tabs globally
 
   ;; Delete spaces at line ends when saving
@@ -32,6 +33,9 @@ Any default in Emacs to be changed
 
   ;; Line numbers when coding
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+  ;; CLISP indentation
+  (setq lisp-indent-function 'common-lisp-indent-function)
 #+end_src
 
 ** GUI Elements
@@ -130,8 +134,7 @@ Set which org faces should use monospace in variable pitch mode
                     org-special-keyword
                     org-table
                     org-verbatim))
-      (set-face-attribute face nil :inherit 'fixed-pitch))
-    )
+      (set-face-attribute face nil :inherit 'fixed-pitch)))
 #+end_src
 
 * Org Mode
@@ -151,8 +154,8 @@ Org-Mode is important!
     (org-indent-mode)    ;; Visually indent
     (visual-line-mode 1) ;; Cursor follows word wrap
     (variable-pitch-mode 1)
-    (nat/org-set-faces)
-    )
+    (nat/org-set-faces))
+
   (use-package org
     :custom
     (org-ellipsis " ▾" "Minimized header indicator")
@@ -160,8 +163,7 @@ Org-Mode is important!
     (org-src-tab-acts-natively t "Indent code blocks")
     (org-hide-emphasis-markers t "Hide markdown symbols")
     :hook
-    (org-mode . nat/org-mode-setup)
-    )
+    (org-mode . nat/org-mode-setup))
 #+end_src
 
 ** Babel
@@ -250,8 +252,7 @@ Load Modus Vivendi, the dark high contrast theme
     (lsp-keymap-prefix "C-c l")
     :hook
     (powershell-mode . lsp)
-    (lsp-mode . lsp-enable-which-key-integration)
-    )
+    (lsp-mode . lsp-enable-which-key-integration))
 #+end_src
 * Unsorted Packages
 ** Which-Key
@@ -259,14 +260,14 @@ Load Modus Vivendi, the dark high contrast theme
   (use-package which-key
     :init
     (which-key-mode)
-  )
+    :custom
+    (which-key-idle-delay 3.0))
 #+end_src
 ** Rainbow-Delimiters
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
     :hook
-    (prog-mode . rainbow-delimiters-mode)
-    )
+    (prog-mode . rainbow-delimiters-mode))
 #+end_src
 ** Company
 #+begin_src emacs-lisp
@@ -276,8 +277,7 @@ Load Modus Vivendi, the dark high contrast theme
     (company-minimum-prefix-length 1)
     (company-idle-delay (lambda()(if(company-in-string-or-comment) nil 0.0)))
     :hook
-    (lsp-mode . company-mode)
-    )
+    (lsp-mode . company-mode))
 #+end_src
 ** Markdown-Mode
 #+begin_src emacs-lisp
@@ -286,13 +286,11 @@ Load Modus Vivendi, the dark high contrast theme
     (markdown-fontify-code-blocks-natively t "Syntax highlighting")
     :config
     (push '("powershell" . powershell-mode) markdown-code-lang-modes)
-    (push '("pwsh" . powershell-mode) markdown-code-lang-modes)
-    )
+    (push '("pwsh" . powershell-mode) markdown-code-lang-modes))
 #+end_src
 ** Vertico
 #+begin_src emacs-lisp
   (use-package vertico
     :init
-    (vertico-mode)
-    )
+    (vertico-mode))
 #+end_src

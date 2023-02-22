@@ -1,7 +1,7 @@
 (setq inhibit-splash-screen t	;; Disable welcome screen
       ring-bell-function 'ignore  ;; Disable error bell
-      display-line-numbers-type t ;; Static line number spacing
-)
+      display-line-numbers-type t) ;; Static line number spacing
+
 (setq-default indent-tabs-mode nil) ;; Disable tabs globally
 
 ;; Delete spaces at line ends when saving
@@ -13,6 +13,9 @@
 
 ;; Line numbers when coding
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;; CLISP indentation
+(setq lisp-indent-function 'common-lisp-indent-function)
 
 (tooltip-mode -1)    ;; Disable GUI hover
 (tool-bar-mode -1)   ;; Disable the bar with icons
@@ -71,8 +74,7 @@
                   org-special-keyword
                   org-table
                   org-verbatim))
-    (set-face-attribute face nil :inherit 'fixed-pitch))
-  )
+    (set-face-attribute face nil :inherit 'fixed-pitch)))
 
 (require 'ox) ;; For exporting
 (require 'org-tempo) ;; For templates
@@ -81,8 +83,8 @@
   (org-indent-mode)    ;; Visually indent
   (visual-line-mode 1) ;; Cursor follows word wrap
   (variable-pitch-mode 1)
-  (nat/org-set-faces)
-  )
+  (nat/org-set-faces))
+
 (use-package org
   :custom
   (org-ellipsis " ▾" "Minimized header indicator")
@@ -90,8 +92,7 @@
   (org-src-tab-acts-natively t "Indent code blocks")
   (org-hide-emphasis-markers t "Hide markdown symbols")
   :hook
-  (org-mode . nat/org-mode-setup)
-  )
+  (org-mode . nat/org-mode-setup))
 
 ;; Add list of babel languages
 (org-babel-do-load-languages 'org-babel-load-languages
@@ -134,18 +135,17 @@
   (lsp-keymap-prefix "C-c l")
   :hook
   (powershell-mode . lsp)
-  (lsp-mode . lsp-enable-which-key-integration)
-  )
+  (lsp-mode . lsp-enable-which-key-integration))
 
 (use-package which-key
   :init
   (which-key-mode)
-)
+  :custom
+  (which-key-idle-delay 3.0))
 
 (use-package rainbow-delimiters
   :hook
-  (prog-mode . rainbow-delimiters-mode)
-  )
+  (prog-mode . rainbow-delimiters-mode))
 
 (use-package company
   :after lsp-mode
@@ -153,18 +153,15 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay (lambda()(if(company-in-string-or-comment) nil 0.0)))
   :hook
-  (lsp-mode . company-mode)
-  )
+  (lsp-mode . company-mode))
 
 (use-package markdown-mode
   :custom
   (markdown-fontify-code-blocks-natively t "Syntax highlighting")
   :config
   (push '("powershell" . powershell-mode) markdown-code-lang-modes)
-  (push '("pwsh" . powershell-mode) markdown-code-lang-modes)
-  )
+  (push '("pwsh" . powershell-mode) markdown-code-lang-modes))
 
 (use-package vertico
   :init
-  (vertico-mode)
-  )
+  (vertico-mode))
