@@ -135,7 +135,15 @@
   (lsp-keymap-prefix "C-c l")
   :hook
   (powershell-mode . lsp)
+  (python-mode . lsp)
+  (java-mode . lsp)
   (lsp-mode . lsp-enable-which-key-integration))
+
+(use-package lsp-pyright
+    :after lsp-mode)
+
+(use-package lsp-java
+    :after lsp-mode)
 
 (use-package which-key
   :init

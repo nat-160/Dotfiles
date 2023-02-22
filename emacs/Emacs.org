@@ -252,7 +252,21 @@ Load Modus Vivendi, the dark high contrast theme
     (lsp-keymap-prefix "C-c l")
     :hook
     (powershell-mode . lsp)
+    (python-mode . lsp)
+    (java-mode . lsp)
     (lsp-mode . lsp-enable-which-key-integration))
+#+end_src
+
+** TODO LSP Pyright
+#+begin_src emacs-lisp
+  (use-package lsp-pyright
+      :after lsp-mode)
+#+end_src
+
+** TODO LSP Java
+#+begin_src emacs-lisp
+  (use-package lsp-java
+      :after lsp-mode)
 #+end_src
 * Unsorted Packages
 ** Which-Key
