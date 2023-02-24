@@ -1,3 +1,6 @@
+[container]
+disabled = true
+
 [aws]
 symbol = "  "
 

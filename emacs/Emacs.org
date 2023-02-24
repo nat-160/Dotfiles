@@ -228,7 +228,7 @@ Load Modus Vivendi, the dark high contrast theme
     :init ;; Customize before load
     (modus-themes-load-themes)
     :config
-    (load-theme 'modus-vivendi t))
+    ;; (load-theme 'modus-vivendi t))
 #+end_src
 * Languages
 ** TODO Powershell

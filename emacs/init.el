@@ -122,7 +122,7 @@
   :init ;; Customize before load
   (modus-themes-load-themes)
   :config
-  (load-theme 'modus-vivendi t))
+  ;; (load-theme 'modus-vivendi t))
 
 (use-package powershell
   :custom
