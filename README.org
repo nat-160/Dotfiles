@@ -10,7 +10,7 @@ Each folder is for its corresponding program, and the config files live inside o
 ** Emacs
 "A great operating system, lacking only a decent editor". See ‘file:emacs/Emacs.org’
 ** PowerShell
-I <3 PowerShell. Currently uses Emacs keybindings.
+Currently uses Emacs keybindings.
 ** Starship
 Starship is a customizable prompt coded in Rust. See [[starship.rs]]
 ** Wezterm
