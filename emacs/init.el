@@ -121,14 +121,16 @@
 
 (use-package modus-themes
   :init ;; Customize before load
-  (modus-themes-load-themes)
+  ;;(modus-themes-load-themes) ;;old
   :config
-  ;; (load-theme 'modus-vivendi t))
+  (load-theme 'modus-vivendi t))
 
 (use-package powershell
   :custom
   (powershell-indent 2 "Spacing after line")
   )
+
+(setq python-shell-interpreter "python3")
 
 (use-package lsp-mode
   :custom
