@@ -314,3 +314,9 @@ Load Modus Vivendi, the dark high contrast theme
     :init
     (vertico-mode))
 #+end_src
+** Slime
+#+begin_src emacs-lisp
+  (use-package slime
+               :custom
+               (inferior-lisp-program "clisp -q"))
+#+end_src

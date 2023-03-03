@@ -175,3 +175,7 @@
 (use-package vertico
   :init
   (vertico-mode))
+
+(use-package slime
+             :custom
+             (inferior-lisp-program "clisp -q"))
