@@ -17,6 +17,10 @@
 ;; CLISP indentation
 (setq lisp-indent-function 'common-lisp-indent-function)
 
+;; Scratch buffer message
+(setq initial-scratch-message "(🄴🄼🄰🄲🅂)")
+(defun 🄴🄼🄰🄲🅂 () (find-file "~/Dotfiles/emacs/Emacs.org"))
+
 (tooltip-mode -1)    ;; Disable GUI hover
 (tool-bar-mode -1)   ;; Disable the bar with icons
 (menu-bar-mode -1)   ;; Disable the bar with text
